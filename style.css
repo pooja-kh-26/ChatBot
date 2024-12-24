@@ -16,6 +16,7 @@ body{
     background:linear-gradient(#7da4c3, #738FA7);
 }
 .chatbot_popup{
+    position: relative;
     min-height: 60vh;
     width: 60vh;
     background-color: #eef0f3;
@@ -119,18 +120,115 @@ body{
 
 .chat_body .bot_msg .thinking_indicator{
     display: flex;
-    gap: 10px;
-    padding-block: 10px;
+    gap: 4px;
+    padding-block: 15px;
+}
+
+.chat_body .bot_msg .thinking .msg_text{
+    padding: 2px 16px;
 }
 
 .chat_body .bot_msg .thinking_indicator .dot{
     height: 7px;
     width: 7px;
+    opacity: 0.7;
     background: #09344e;
     border-radius: 50%;
     animation: dotPulse 1.8s ease-in-out infinite;
 }
 
+.chat_body .bot_msg .thinking_indicator .dot:nth-child(1){
+    animation-delay: 0.2s;
+}
+
+.chat_body .bot_msg .thinking_indicator .dot:nth-child(2){
+    animation-delay: 0.3s;
+}
+
+.chat_body .bot_msg .thinking_indicator .dot:nth-child(3){
+    animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+    0%, 44%{
+        transform: translateY(0);
+    }
+
+    28%{
+        opacity: 0.4;
+        transform: translateY(-4px);
+    }
+
+    44%{
+        opacity: 0.2;
+    }
+}
+
 .chat_footer{
     position: absolute;
+    width: 100%;
+    bottom: 0;
+    background: #eef0f3;
+    padding: 15px 22px 20px;
+}
+
+.chat_footer .chat_form{
+    display: flex;
+    align-items: center;
+    background-color: #eef0f3;
+    border-radius: 32px;
+    outline: 1px solid #738FA7;
+}
+
+.chat_footer .chat_form:focus-within{
+    outline: 2px solid #09344e;
+}
+
+.chat_form .message_input{
+    border: none;
+    outline: none;
+    height: 47px;
+    width: 100%;
+    resize: none;
+    font-size: 0.95rem;
+    padding: 14px 0px 12px 18px;
+    border-radius: inherit;
+}
+
+.chat_form .chat_controls{
+    display: flex;
+    height: 47px;
+    gap: 3px;
+    align-items: center;
+    align-self: flex-end;
+    padding-right: 6px;
+}
+
+.chat_form .chat_controls button{
+    height: 35px;
+    width: 35px;
+    border: none;
+    font-size: 1.15rem;
+    cursor: pointer;
+    background:none;
+    color: #09344e;
+    border-radius: 50%;
+    transition: 0.2s ease;
+}
+
+.chat_form .chat_controls #send_msg{
+    color: #C3CEDA;
+    display: none;
+    background: #09344e;
+}
+
+.chat_form .message_input:valid~ .chat_controls #send_msg{
+    display: block;
+}
+.chat_form .chat_controls #send_msg:hover{
+    background: #34576d;
+}
+
+.chat_form .chat_controls button:hover{
+    background: #C3CEDA;
 }

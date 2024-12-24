@@ -20,38 +20,25 @@
 
         <!--chat body-->
         <div class="chat_body">
-            <div class="msg bot_msg">
+            <div class="msg bot_msg thinking">
                 <img class="bot_avatar" src="https://img.icons8.com/?size=100&id=nPDSGnDmBUAl&format=png&color=000000" alt="ChatBot icon">
-                <div class="msg_text">Hey there 👋<br/>How can I help you?</div>
-            </div>
-
-            <div class="msg user_msg">
-                <div class="msg_text">Lorem ipsum dolor sit amet consectetur adipisicing elit. In necessitatibus voluptas voluptatibus debitis et odit minima corporis, enim dolorem, voluptatum natus laboriosam similique dolor placeat repellat reiciendis excepturi asperiores eligendi.</div>
-            </div>
-
-            <div class="msg bot_msg">
-                <img class="bot_avatar" src="https://img.icons8.com/?size=100&id=nPDSGnDmBUAl&format=png&color=000000" alt="ChatBot icon">
-                <div class="msg_text">
-                    <div class="thinking_indicator">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div>
+                <div class="msg_text">Hey there 👋<br/>How can I help you today?</div>
             </div>
         </div>
 
         <!--chat footer-->
         <div class="chat_footer">
             <form action="#" class="chat_form">
-                <textarea placeholder="Message..." class="message_input"></textarea>
+                <textarea placeholder="Message..." class="message_input" required></textarea>
                 <div class="chat_controls">
                     <button type="button" class="symbols"><i class="fa-regular fa-face-smile"></i></button>
                     <button type="button" class="symbols"><i class="fa-solid fa-paperclip"></i></button>
-                    <button type="submit" class="symbols"><i class="fa-solid fa-arrow-up"></i></button>
+                    <button type="submit" class="symbols" id="send_msg"><i class="fa-solid fa-arrow-up"></i></button>
                 </div>
             </form>
         </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
