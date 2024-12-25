@@ -75,6 +75,8 @@ body{
     margin-bottom: 82px;
     overflow-y: auto;
     flex-direction: column;
+    scrollbar-width: thin;
+    scrollbar-color: #d8d8ed transparent;
 }
 
 .chat_body .msg{
@@ -116,6 +118,12 @@ body{
     color:#C3CEDA ;
     background: #09344e;
     border-radius: 13px 13px 3px 13px;
+}
+
+.chat_body .user_msg .attachment{
+    width: 50%;
+    margin-top: -7px;
+    border-radius: 13px 3px 13px 13px;
 }
 
 .chat_body .bot_msg .thinking_indicator{
@@ -231,4 +239,36 @@ body{
 
 .chat_form .chat_controls button:hover{
     background: #C3CEDA;
+}
+
+.chat_form .file_upload_wrapper{
+    height: 35px;
+    width: 35px;
+    position: relative;
+}
+
+.chat_form .file_upload_wrapper :where(img, button){
+    position: absolute;
+}
+
+.chat_form .file_upload_wrapper img{
+    display: none;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.chat_form .file_upload_wrapper #file_cancel{
+    color: #ff0000;
+}
+
+.chat_form .file_upload_wrapper :where(img, #file_cancel),
+.chat_form .file_upload_wrapper.file_uploaded #file_upload {
+    display: none;
+}
+
+.chat_form .file_upload_wrapper.file_uploaded img,
+.chat_form .file_upload_wrapper.file_uploaded:hover #file_cancel{
+    display: block;
 }
