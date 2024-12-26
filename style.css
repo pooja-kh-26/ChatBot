@@ -15,13 +15,59 @@ body{
     min-height: 100vh;
     background:linear-gradient(#7da4c3, #738FA7);
 }
+
+#chatbot_toggle{
+    position: fixed;
+    bottom: 30px;
+    right: 35px;
+    border: none;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    background: #09344e;
+    transition: all 0.2s ease;
+}
+
+body.show_chatbot #chatbot_toggle{
+    transform: rotate(90deg);
+}
+
+#chatbot_toggle span{
+    color: #C3CEDA;
+    position: absolute;
+}
+
+body.show_chatbot #chatbot_toggle span:first-child,
+#chatbot_toggle span:last-child{
+    opacity: 0;
+}
+
+body.show_chatbot #chatbot_toggle span:last-child{
+    opacity: 1;
+}
+
 .chatbot_popup{
     position: relative;
-    min-height: 60vh;
-    width: 60vh;
+    /* height: 80vh;
+    width: 60vh; */
+    opacity: 0;
+    pointer-events: none;
     background-color: #eef0f3;
     overflow: hidden;
     border-radius: 15px;
+    transition: all 0.1s ease;
+    transform: scale(0.2);
+    transform-origin: bottom right;
+}
+
+body.show_chatbot .chatbot_popup{
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
 }
 
 .chat_header{
@@ -182,6 +228,7 @@ body{
 
 .chat_footer .chat_form{
     display: flex;
+    position: relative;
     align-items: center;
     background-color: #eef0f3;
     border-radius: 32px;
@@ -198,9 +245,16 @@ body{
     height: 47px;
     width: 100%;
     resize: none;
+    max-height: 180px;
     font-size: 0.95rem;
     padding: 14px 0px 12px 18px;
     border-radius: inherit;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+.chat_form .message_input:hover{
+    scrollbar-color: #ccccf5 transparent;
 }
 
 .chat_form .chat_controls{
@@ -209,7 +263,7 @@ body{
     gap: 3px;
     align-items: center;
     align-self: flex-end;
-    padding-right: 6px;
+    padding-right: 20px;
 }
 
 .chat_form .chat_controls button{
@@ -272,3 +326,51 @@ body{
 .chat_form .file_upload_wrapper.file_uploaded:hover #file_cancel{
     display: block;
 }
+
+em-emoji-picker {
+    position: absolute;
+    left: 50%;
+    top: -337px;
+    width: 100%;
+    max-width: 350px;
+    max-height: 330px;
+    visibility: hidden;
+    transform: translateX(-50%);
+}
+
+body.show_emoji_picker em-emoji-picker {
+    visibility: visible;
+}
+
+/* Responsive media query for mobile screen
+@media (max-width: 520px){
+    #chatbot_toggle{
+        right: 20px;
+        bottom: 20px;
+    }
+
+    .chatbot_popup{
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        border-radius: 0;
+        width: 100%;
+    }
+
+    .chatbot_popup .chat_header{
+        padding: 12px 15px;
+    }
+
+    .chat_body{
+        height: calc(90% - 55px);
+        padding: 25px 15px;
+    }
+
+    .chat_footer{
+        padding: 10px 15px 15px;
+    }
+
+    .chat_form .file_upload_wrapper.file_uploaded #file_cancel {
+        opacity: 0;
+    }
+} */

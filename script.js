@@ -4,6 +4,8 @@ const sendMsgButton = document.querySelector("#send_msg");
 const fileInput = document.querySelector("#file_input");
 const fileUploadWrapper = document.querySelector(".file_upload_wrapper");
 const fileCancelButton = document.querySelector("#file_cancel");
+const chatbotToggler = document.querySelector("#chatbot_toggle");
+const closeChatbot = document.querySelector("#close_chat_box");
 
 //API setup
 const API_KEY = "AIzaSyDRpev8Yebj0uH-86iOsxTW8bA1ViW_qnk";
@@ -16,6 +18,8 @@ const userData = {
         mime_type: null
     }
 }
+
+const initialInputHeight = messageInput.scrollHeight;
 
 // create a msg content with dynamic class and return it
 const createMsgElement = (content, ...classes) =>{
@@ -67,7 +71,8 @@ const handleOutgoingMsg = (e) => {
     userData.msg = messageInput.value.trim();
     messageInput.value = "";
     fileUploadWrapper.classList.remove("file_uploaded");
-
+    messageInput.dispatchEvent(new Event("input"));
+    
     //create and display usr msg
     const msgContent = `<div class="msg_text"></div>
                         ${userData.file.data ? `<img src="data:${userData.file.mime_type};base64, ${userData.file.data}" class="attachment"/>` : ""}`;
@@ -98,10 +103,17 @@ const handleOutgoingMsg = (e) => {
 //Handle enter key press for sending msg
 messageInput.addEventListener("keydown", (e) => {
     const userMsg = e.target.value.trim();
-    if(e.key === "Enter" && userMsg){
+    if(e.key === "Enter" && userMsg && !e.shiftKey && window.innerWidth > 768){
         handleOutgoingMsg(userMsg);
         //messageInput.value = ""; // Clear the input field
     }
+});
+
+//Adjust input field height dynamically
+messageInput.addEventListener("input", () => {
+    messageInput.style.height = `${initialInputHeight}px`;
+    messageInput.style.height = `${messageInput.scrollHeight}px`;
+    document.querySelector(".chat_form").style.borderRadius = messageInput.scrollHeight > initialInputHeight ? "15px" : "32px";
 });
 
 // Handle file input change and preview the selected file
@@ -132,5 +144,33 @@ fileCancelButton.addEventListener("click", () => {
     fileUploadWrapper.classList.remove("file_uploaded");
 });
 
+//Initialize emoji picker and handle emoji selection
+const picker = new EmojiMart.Picker({
+    theme: "light",
+    skinTonePosition: "none",
+    previewPosition: "none",
+    onEmojiSelect: (emoji) => {
+        const { selectionStart: start, selectionEnd: end } = messageInput;
+        messageInput.setRangeText(emoji.native, start, end, "end");
+        messageInput.focus();
+    },
+    onClickOutside: (e) => {
+        if(e.target.id === "emoji_picker"){
+            document.body.classList.toggle("show_emoji_picker");
+        } else{
+            document.body.classList.remove("show_emoji_picker");
+        }
+    },
+});
+
+document.querySelector(".chat_form").appendChild(picker);
+
 sendMsgButton.addEventListener("click", (e) => handleOutgoingMsg(e))
 document.querySelector("#file_upload").addEventListener("click", () => fileInput.click());
+chatbotToggler.addEventListener("click", () => {
+    document.body.classList.toggle("show_chatbot")
+});
+
+closeChatbot.addEventListener("click", () => {
+    document.body.classList.remove("show_chatbot")
+});
